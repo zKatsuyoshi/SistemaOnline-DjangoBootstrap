@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Listar Professores</h1>
+    <a href="{% url 'incluirProfessores' %}">Cadastrar novo professor</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+
+            <th>Nome</th>
+            <th>Telefone</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+            {% for professor in lista %}
+            <tr>
+            <td>{{ professor.nome }}</td>
+            <td>{{ professor.telefone }}</td>
+                <td><a href="/cadastro/editar_professores/{{professor.codigo}}">Alterar</a> <a href="/cadastro/excluir_professores/{{professor.codigo}}">Excluir</a></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
