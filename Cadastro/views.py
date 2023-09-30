@@ -58,12 +58,33 @@ def incluirProfessores(request):
             try:
                 form.save()
                 model = form.instance
-                return redirect('listar_professores')
+                return redirect('listarProfessores')
             except:
                 pass
     else:
         form = ProfessorForm()
     return render(request, template_name="incluirProfessores.html", context={'form': form})
+
+def editarProfessores(request, id):
+    professor = Professor.objects.get(id=id)
+    form = ProfessorForm(instance=professor)
+    if request.method == 'POST':
+        form = ProfessorForm(request.POST, instance=professor)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('listarProfessores')
+            except:
+                pass
+    return render(request, template_name="incluirProfessores.html", context={'form': form})
+
+def excluirProfessores(request, id):
+    professor = Professor.objects.get(id=id)
+    try:
+        professor.delete()
+    except:
+        pass
+    return redirect('listarProfessores')
 
 def listarAlunos(request):
     aluno = Aluno.objects.all().order_by('-nome')
@@ -76,9 +97,30 @@ def incluirAlunos(request):
             try:
                 form.save()
                 model = form.instance
-                return redirect('listar_alunos')
+                return redirect('listarAlunos')
             except:
                 pass
     else:
         form = AlunoForm()
     return render(request, template_name="incluirAlunos.html", context={'form': form})
+
+def editarAlunos(request, id):
+    aluno = Aluno.objects.get(id=id)
+    form = AlunoForm(instance=aluno)
+    if request.method == 'POST':
+        form = AlunoForm(request.POST, instance=aluno)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('listarAlunos')
+            except:
+                pass
+    return render(request, template_name="incluirAlunos.html", context={'form': form})
+
+def excluirAlunos(request, id):
+    aluno = Aluno.objects.get(id=id)
+    try:
+        aluno.delete()
+    except:
+        pass
+    return redirect('listarAlunos')

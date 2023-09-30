@@ -18,7 +18,10 @@
             <tr>
             <td>{{ curso.nome }}</td>
             <td>{{ curso.valor }}</td>
-                <td><a href="/cadastro/editar_cursos/{{curso.codigo}}">Alterar</a> <a href="/cadastro/excluir_cursos/{{curso.codigo}}">Excluir</a></td>
+                <td>
+                    <a href="/cadastro/editar_cursos/{{curso.codigo}}">Alterar</a>
+                    <a href="javascript:void(0)" onclick="abrirTela('/cadastro/excluir_cursos/{{curso.codigo}}')">Excluir</a>
+                </td>
             </tr>
             {% endfor %}
 
@@ -31,14 +34,14 @@
             <div class="modal-header">
                 <h4 class="modal-title">Exclusão</h4>
             </div>
-            <form action="">
+            <form id="modalForm">
                 <div class="modal-body">
                     <label>Deseja excluir?</label>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal" onclick="fecharTela()">Cancelar</button>
+                    <button type=button class="btn btn-secondary" data-dismiss="modal" onclick="fecharTela()">Cancelar</button>
                     {% csrf_token %}
-                    <button class="btn btn-primary" data-dismiss="modal" onclick="excluir()">Excluir</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="excluir()">Excluir</button>
                 </div>
             </form>
         </div>
@@ -61,8 +64,8 @@
     }
 
     function excluir(){
-        fecharTela();
         window.location = caminho;
+        fecharTela();
     }
 </script>
 {% endblock %}
